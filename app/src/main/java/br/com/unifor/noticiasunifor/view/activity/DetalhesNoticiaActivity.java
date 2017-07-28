@@ -1,5 +1,6 @@
 package br.com.unifor.noticiasunifor.view.activity;
 
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,16 +74,25 @@ public class DetalhesNoticiaActivity extends AppCompatActivity {
         corpo.setText(spanned);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_detalhes_noticias, menu);
+        if (!noticiaService.mesmoTitulo(noticia.getTitulo())
+                || Objects.equals(noticia.getTipo(), Noticia.TIPO_FAVORITO)) {
+            //inflater.inflate(R.menu.menu_detalhes_noticias, menu);
 
-        if (Objects.equals(noticia.getTipo(), "FAVORITO")) {
-            menu.getItem(0).setIcon(R.drawable.ic_star_black_24dp);
-        }else {
-            menu.getItem(0).setIcon(R.drawable.ic_star_border_black_24dp);
+            if (Objects.equals(noticia.getTipo(), Noticia.TIPO_FAVORITO)) {
+                inflater.inflate(R.menu.menu_detalhes_noticias, menu);
+                //menu.getItem(0).setIcon(R.drawable.ic_star_black_24dp);
+            }else {
+                inflater.inflate(R.menu.menu_detalhes_nao_favorito, menu);
+                //menu.getItem(0).setIcon(R.drawable.ic_star_border_black_24dp);
+            }
+        }else{
+            inflater.inflate(R.menu.menu_detalhe_favorito, menu);
         }
+
         return true;
     }
 
@@ -92,21 +102,22 @@ public class DetalhesNoticiaActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.favoritar:
-                if (noticia.getTipo().equals("FAVORITO")) {
-                    desfavoritar();
-                    invalidateOptionsMenu();
-                    finish();
-                }else{
-                    favoritar();
-                    invalidateOptionsMenu();
-                }
+                favoritar();
+                invalidateOptionsMenu();
                 break;
+            case R.id.desfavoritar:
+                desfavoritar();
+                finish();
+                break;
+            case R.id.eh_favorito:
+                Snackbar.make(imageView, "Para desfavoritar acesse os favoritos!", Snackbar.LENGTH_LONG).show();
             default:
                 Log.d("Return:", "Eu não conheço esse Menu");
                 return false;
         }
         return true;
     }
+
 
     private void favoritar() {
         noticiaService.favoritar(idNoticia);

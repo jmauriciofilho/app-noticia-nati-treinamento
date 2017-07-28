@@ -6,4 +6,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="titulo">Título</string>
+    <string name="corpo">Corpo</string>
+    <string name="imagem_da_not_cia">Imagem da Notícia</string>
+    <string name="teste">Teste</string>
+    <string name="favoritar">Favoritar</string>
 </resources>

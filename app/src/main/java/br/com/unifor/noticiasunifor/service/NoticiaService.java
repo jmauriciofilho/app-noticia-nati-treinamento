@@ -73,6 +73,15 @@ public class NoticiaService {
         realm.commitTransaction();
     }
 
+    public boolean mesmoTitulo(String titulo){
+        Realm realm = Realm.getDefaultInstance();
+        long numero = realm
+                .where(Noticia.class)
+                .equalTo("titulo", titulo).count();
+
+        return numero > 1;
+    }
+
     public void requestNoticias(){
         EventBus.getDefault().post(new RequestBegunEvent());
         api.getNoticias().enqueue(new Callback<List<Noticia>>() {
@@ -109,12 +118,12 @@ public class NoticiaService {
 
     public List<Noticia> getNoticias(){
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<Noticia> noticiasEventos = realm
+        RealmResults<Noticia> noticias = realm
                 .where(Noticia.class)
-                .equalTo("tipo", "NOTICIA").findAll();
+                .equalTo("tipo", Noticia.TIPO_NOTICIA).findAll();
 
-        if (noticiasEventos != null) {
-            return realm.copyFromRealm(noticiasEventos);
+        if (noticias != null) {
+            return realm.copyFromRealm(noticias);
         } else {
             return null;
         }
@@ -124,7 +133,7 @@ public class NoticiaService {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Noticia> noticiasEventos = realm
                 .where(Noticia.class)
-                .equalTo("tipo", "EVENTO").findAll();
+                .equalTo("tipo", Noticia.TIPO_EVENTO).findAll();
 
         if (noticiasEventos != null) {
             return realm.copyFromRealm(noticiasEventos);
@@ -135,12 +144,12 @@ public class NoticiaService {
 
     public List<Noticia> getNoticiasEsporte(){
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<Noticia> noticiasEventos = realm
+        RealmResults<Noticia> noticiasEsporte = realm
                 .where(Noticia.class)
-                .equalTo("tipo", "ESPORTIVO").findAll();
+                .equalTo("tipo", Noticia.TIPO_ESPORTIVO).findAll();
 
-        if (noticiasEventos != null) {
-            return realm.copyFromRealm(noticiasEventos);
+        if (noticiasEsporte != null) {
+            return realm.copyFromRealm(noticiasEsporte);
         } else {
             return null;
         }
@@ -148,12 +157,12 @@ public class NoticiaService {
 
     public List<Noticia> getNoticiaFavorita(){
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<Noticia> noticiasEventos = realm
+        RealmResults<Noticia> noticiasFavoritas = realm
                 .where(Noticia.class)
-                .equalTo("tipo", "FAVORITO").findAll();
+                .equalTo("tipo", Noticia.TIPO_FAVORITO).findAll();
 
-        if (noticiasEventos != null) {
-            return realm.copyFromRealm(noticiasEventos);
+        if (noticiasFavoritas != null) {
+            return realm.copyFromRealm(noticiasFavoritas);
         } else {
             return null;
         }

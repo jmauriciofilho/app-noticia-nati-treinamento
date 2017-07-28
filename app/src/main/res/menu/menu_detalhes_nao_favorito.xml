@@ -2,11 +2,9 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
-        android:id="@+id/desfavoritar"
+        android:id="@+id/favoritar"
         android:title="@string/favoritar"
-        android:icon="@drawable/ic_star_black_24dp"
+        android:icon="@drawable/ic_star_border_black_24dp"
         app:showAsAction="always"/>
-
 </menu>

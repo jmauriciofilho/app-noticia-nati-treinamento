@@ -21,6 +21,11 @@ public class Noticia extends RealmObject{
     private Integer registro;
     private Integer totalRegistro;
 
+    public static final String TIPO_NOTICIA = "NOTICIA";
+    public static final String TIPO_EVENTO = "EVENTO";
+    public static final String TIPO_ESPORTIVO = "ESPORTIVO";
+    public static final String TIPO_FAVORITO = "FAVORITO";
+
     public Noticia() {
     }
 
